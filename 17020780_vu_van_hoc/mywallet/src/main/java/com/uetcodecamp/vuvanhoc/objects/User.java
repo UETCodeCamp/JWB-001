@@ -1,14 +1,13 @@
 package com.uetcodecamp.vuvanhoc.objects;
 
 public class User {
-	private static int id ;
+	private  int id ;
 	private String name;
 	private String email;
 	private String phone;
 	private int balance;
 
 	public User(String name, String email, String phone, int balance) {
-		id++;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
@@ -16,15 +15,15 @@ public class User {
 	}
 
 	public User() {
-		id++;
+
 	}
 
-	public static int getId() {
+	public int getId() {
 		return id;
 	}
 
-	public static void setId(int id) {
-		User.id = id;
+	public  void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

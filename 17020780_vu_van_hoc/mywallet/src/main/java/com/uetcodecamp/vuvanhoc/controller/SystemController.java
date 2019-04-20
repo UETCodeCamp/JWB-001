@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.View;
 
 import java.util.ArrayList;
 
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 public class SystemController {
 
 	ArrayList<User> items = new ArrayList<>();
+	private int id;
 
 	@RequestMapping(value = {"/", "/home"})
 	public String index(Model model) {
@@ -23,12 +23,17 @@ public class SystemController {
 	}
 
 	@GetMapping(value = "/add")
-	public String add(Model model, @RequestParam String name, @RequestParam String phone,
-	                  @RequestParam String email, @RequestParam int balance) {
-		model.addAttribute("items", items);
-		items.add(new User(name, phone, email, balance));
-
+	public String add(){
 		return "add";
+	}
+	@GetMapping(value = "/addUser2List")
+	public String addUser2List(@RequestParam String name, @RequestParam String email,
+	                     @RequestParam String phone, @RequestParam int balance) {
+		User newUser = new User(name, email, phone, balance);
+		id++;
+		newUser.setId(id);
+		items.add(newUser);
+		return "redirect:home";
 	}
 
 
