@@ -14,27 +14,34 @@ import java.util.ArrayList;
 public class SystemController {
 
 	ArrayList<User> items = new ArrayList<>();
-	private int id;
+	private int templateId;
 
-	@RequestMapping(value = {"/", "/home"})
+	@RequestMapping(value = {"/"})
 	public String index(Model model) {
 		model.addAttribute("items", items);
 		return "home";
 	}
-
-	@GetMapping(value = "/add")
-	public String add(){
-		return "add";
+	@GetMapping(value = "/them-nguoi-dung")
+	public String formGet(){
+		return "themUser";
 	}
-	@GetMapping(value = "/addUser2List")
-	public String addUser2List(@RequestParam String name, @RequestParam String email,
-	                     @RequestParam String phone, @RequestParam int balance) {
+	@PostMapping(value = "/them-nguoi-dung")
+	public String formPost(@RequestParam String name, @RequestParam String email,
+	                       @RequestParam String phone, @RequestParam int balance){
 		User newUser = new User(name, email, phone, balance);
-		id++;
-		newUser.setId(id);
+		newUser.setId(templateId);
+		templateId++;
 		items.add(newUser);
-		return "redirect:home";
+		return "redirect:/";
 	}
-
+	@GetMapping(value = "/sua-thong-tin")
+	public String sua(){
+		return "suaThongTin";
+	}
+	@PostMapping(value = "/sua-thong-tin/")
+	public String formUpdate(User user, Model model){
+		System.out.println();
+		return "redirect:/";
+	}
 
 }
