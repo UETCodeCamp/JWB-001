@@ -1,10 +1,7 @@
 h1 {
     color: red;
     text-align: center;
-    padding-top: 10px;
-
 }
-
 h2 {
     padding-left: 10px;
     color: #112386;
@@ -17,8 +14,7 @@ h3{
 }
 div.header {
     background-color: #a5bbe2;
-    height: 100px;
-    margin-bottom: 10px;
+    height: auto;
 }
 div.form {
     border-radius: 5px;
@@ -118,7 +114,28 @@ a.buttonHome:link{
 a.buttonHome:hover{
     background-color: #6468ff;
 }
-a.link {
-    font-size: 20px;
-    color: darkgreen;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #724fff;
+    height: content-box;
 }
+li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: #fafbe1;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #ec6b5a;
+}
+
+

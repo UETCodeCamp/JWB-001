@@ -1,5 +1,5 @@
 <%@ page import="com.uetcodecamp.vuvanhoc.objects.User" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
@@ -7,15 +7,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Wallet - Home</title>
+<title>My Wallet - Trang chủ </title>
 <spring:url value="/resources/css/main.css" var="mainCss"/>
 <link href="${mainCss}" rel="stylesheet">
 </head>
 <body>
 <div class="header">
 	<h1>MY WALLET</h1>
-	<a class="link" href="/">Home</a>
+	<ul>
+		<li><a href="/">Trang chủ </a></li>
+		<li><a href="/dang-nhap">Đăng nhập </a></li>
+	</ul>
 </div>
+
 <div class="home">
 	<h3>Danh sách người dùng</h3><br>
 	
@@ -34,21 +38,22 @@
 		<tbody>
 		
 			<%
-				ArrayList<User> results = (ArrayList<User>) request.getAttribute("items");
-				for (int i = 0; i < results.size(); i++) {
+				HashMap<Integer, User> results = (HashMap<Integer, User>) request.getAttribute("items");
+				for(int key : results.keySet()) {
 			%>
 			<tr>
-				<td style="text-align: center"><%=results.get(i).getId()%>
+				<td style="text-align: center"><%=results.get(key).getId()%>
 				</td>
-				<td><%=results.get(i).getName()%>
+				<td><%=results.get(key).getName()%>
 				</td>
-				<td><%=results.get(i).getEmail()%>
+				<td><%=results.get(key).getEmail()%>
 				</td>
-				<td><%=results.get(i).getPhone()%>
+				<td><%=results.get(key).getPhone()%>
 				</td>
-				<td style="text-align: right"><%=results.get(i).getBalance()%>
+				<td style="text-align: right"><%=results.get(key).getBalance()%>
 				</td>
-				<td><a href="/sua-thong-tin/<%=results.get(i).getId()%>">Edit</a></td>
+				<td><a href="/sua-thong-tin/<%=results.get(key).getId()%>">Edit</a>
+				</td>
 			</tr>
 			<%
 				}
