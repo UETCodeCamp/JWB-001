@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AddingController {
     @PostMapping(value="/add-customer")
     public String addCustomer(@ModelAttribute("customerInfo") Customer customer) {
-        int id = CustomerList.customerList.size();
-        customer.setId(id);
-        CustomerList.customerList.add(customer);
+        CustomerList.addCustomer(customer);
         return "redirect:/customer-list";
     }
 }

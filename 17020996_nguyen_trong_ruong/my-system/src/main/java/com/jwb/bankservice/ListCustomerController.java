@@ -32,8 +32,9 @@ public class ListCustomerController {
         return "Login";
     }
     @GetMapping(value="/transfering-form")
-    public String transferingForm(@RequestParam(name="customerId") Integer id, ModelMap modelMap){
+    public String transferingForm(@RequestParam(name="customerId") Integer id, @RequestParam(name="availableBalance") Integer balance, ModelMap modelMap){
         modelMap.addAttribute("customerId", id);
+        modelMap.addAttribute("balance", balance);
         return "Transfer";
     }
 }

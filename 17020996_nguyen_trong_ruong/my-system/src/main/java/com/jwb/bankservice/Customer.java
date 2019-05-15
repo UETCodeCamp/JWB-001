@@ -3,14 +3,13 @@ package com.jwb.bankservice;
 public class Customer {
 
     private String name, email, phoneNumber, password = "123456";
-    private int id, balance, login = 0;
+    private int id, balance, login = 1;
 
     public Customer() {
 
     }
 
-    public Customer(int id, String name, String email, String phoneNumber, int balance) {
-        this.id = id;
+    public Customer(String name, String email, String phoneNumber, int balance) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

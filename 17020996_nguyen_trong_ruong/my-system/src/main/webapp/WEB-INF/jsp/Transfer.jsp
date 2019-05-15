@@ -9,6 +9,8 @@
             <form action="/transfer" method="POST">
             <fieldset>
                 <legend>Transfer</legend>
+                Available: <br>
+                <div>${balance} $</div>
                 ID: <br>
                 <input name = receivedId placeholder="Enter receiver's ID" type="number"/> <br>
                 <input type="hidden" value="${customerId}" name="sentId">
