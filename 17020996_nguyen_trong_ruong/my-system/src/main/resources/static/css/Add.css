@@ -1,0 +1,61 @@
+.submit:hover {
+    background-color: #104f66;
+    color: white;
+}
+
+.submit {
+    width: 120px;
+    text-align: center;
+    background-color: #15ace6;
+    border: none;
+    padding: 10px 36px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    font-size: 20px;
+    margin: auto;
+}
+
+input {
+    width: 320px;
+    height: 38px;
+    border-radius: 3px;
+    border: none;
+    /* text-align: left; */
+    margin-bottom: 30px;
+    text-indent: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+fieldset {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    width: 480px;
+    margin: auto;
+}
+
+legend {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: tomato;
+    color: white;
+    font-size: 25px;
+}
+
+label {
+    width: 130px;
+    text-align: left;
+    font-size: 20px;
+    float: left;
+}
+body{
+    background-color: aliceblue;
+}

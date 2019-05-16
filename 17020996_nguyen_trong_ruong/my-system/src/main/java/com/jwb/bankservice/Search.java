@@ -16,7 +16,7 @@ public class Search {
         ArrayList<String> listResult = new ArrayList<>();
         for(Customer customer : CustomerList.customerList){
             if (customer.getName().contains(data) || customer.getEmail().contains(data) || customer.getPhoneNumber().contains(data)){
-                result += "<tr> <td>" + customer.getName() + "</td> <td>" + customer.getEmail() + "</td> <td>" + customer.getPhoneNumber() + "</td> </tr>";
+                result += "<tr> <td>" + customer.getName() + "</td> <td>" + customer.getEmail() + "</td> <td>" + customer.getPhoneNumber() + "</td> <td><a href=\"/editing-form?customerId=" + customer.getId() + "\">Edit</a> </td></tr>";
                 listResult.add(result);
                 result = "";
             }

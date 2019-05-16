@@ -17,8 +17,8 @@
         }
 
         $(document).ready(function () {
-            $("#search").keyup(function () {
-                var info = $("#search").val();
+            $("#searchInput").keyup(function () {
+                var info = $("#searchInput").val();
                 if (info != "") {
                     $.ajax({
                         type: "POST",
@@ -44,8 +44,8 @@
 </head>
 
 <body>
-    <div>
-        <input type="text" placeholder="search.." id="search">
+    <div class = "search">
+        <input type="text" placeholder="Search.." id="searchInput">
         <table id=searchResult></table>
     </div>
     <div>
@@ -57,7 +57,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Balance</th>
-                    <th></th>
+                    <th colspan="4"></th>
                 </tr>
             </thead>
             <tbody>
@@ -69,36 +69,43 @@
                         <td>${customer.phoneNumber}</td>
                         <td>${customer.balance}</td>
                         <c:if test="${customer.login == 1}">
-                            <td>
+                            <td class="tdButton"> 
                                 <form action="/editing-form" method="GET">
                                     <input type="hidden" value="${customer.id}" name="customerId">
-                                    <input type="submit" value="Edit">
+                                    <input type="submit" class="button" value="Edit">
                                 </form>
-
+                            </td>
+                            <td class="tdButton">
                                 <form action="/transfering-form" method="GET">
                                     <input type="hidden" value="${customer.id}" name="customerId">
                                     <input type="hidden" value="${customer.balance}" name="availableBalance">
-                                    <input type="submit" value="Transfer">
+                                    <input type="submit" class="button" value="Transfer">
                                 </form>
+                            </td>
+                            <td class="tdButton">
+                                <input class="button" type="button" value="Delete" onclick="del(this,'${customer.id}')">
 
+                            </td>
+                            <td class="tdButton">
                                 <form action="/logout" method="GET">
                                     <input type="hidden" value="${customer.id}" name="customerId">
-                                    <input type="submit" value="Logout">
+                                    <input type="submit" class="button" value="Logout">
                                 </form>
-                                <input class="dlt" type="button" value="Delete" onclick="del(this,'${customer.id}')">
                             </td>
                         </c:if>
                         <c:if test="${customer.login == 0}">
-                            <td>
+                            <td class="tdButton">
                                 <form action="/login-form" method="GET">
                                     <input type="hidden" value="${customer.id}" name="customerId">
-                                    <input type="submit" value="Login">
+                                    <input type="submit" class="button" value="Login">
                                 </form>
                             </td>
                         </c:if>
                     </tr>
                 </c:forEach>
-                <td><button id=add type="button" onclick="location.href = '/adding-form'">Add</button></td>
+                <td class="tdButton">
+                    <button id=add class="button" type="button" onclick="location.href = '/adding-form'">Add</button>
+                </td>
             </tbody>
         </table>
     </div>

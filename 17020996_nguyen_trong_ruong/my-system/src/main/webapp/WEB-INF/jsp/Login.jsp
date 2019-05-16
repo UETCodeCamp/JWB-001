@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="css/Login.css">
         <title>Login</title>
     </head>
     <body>
@@ -14,7 +15,7 @@
                 <input name = id value="${customerInfo.id}" type="hidden"/> <br>
                 Password: <br>
                 <input name = pw placeholder="Enter password" type="password"/> <br>
-                <input type="submit" value="Login">
+                <input type="submit" class="submit" value="Login">
             </fieldset>
         </form>
     </body>
