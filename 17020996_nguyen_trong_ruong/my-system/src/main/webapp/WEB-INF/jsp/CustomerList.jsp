@@ -76,7 +76,7 @@
                                 </form>
                             </td>
                             <td class="tdButton">
-                                <form action="/transfering-form" method="GET">
+                                <form action="/transfering-form" method="POST">
                                     <input type="hidden" value="${customer.id}" name="customerId">
                                     <input type="hidden" value="${customer.balance}" name="availableBalance">
                                     <input type="submit" class="button" value="Transfer">

@@ -10,10 +10,9 @@
             <form action="/login" method="POST">
             <fieldset>
                 <legend>Login</legend>
-                Email: <br>
-                ${customerInfo.email} <br>
+                <label>Email:</label> <br>
                 <input name = id value="${customerInfo.id}" type="hidden"/> <br>
-                Password: <br>
+                <lable>Password:</lable>
                 <input name = pw placeholder="Enter password" type="password"/> <br>
                 <input type="submit" class="submit" value="Login">
             </fieldset>

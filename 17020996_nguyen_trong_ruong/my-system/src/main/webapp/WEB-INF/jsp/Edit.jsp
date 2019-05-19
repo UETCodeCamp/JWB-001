@@ -11,6 +11,7 @@
         <form:form action="/edit-customer" method="POST" modelAttribute="customerInfo">
             <fieldset>
                 <legend>Edit customer</legend>
+                <form:input path = "id" value = "${customerInfo.id}" type = "hidden"/>
                 <label>Name:</label>
                 <form:input path = "name" placeholder="Enter name" type="text"/> <br>
                 <label>Email:</label>
