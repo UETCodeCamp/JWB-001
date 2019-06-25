@@ -2,7 +2,7 @@ package com.jwb.bankservice;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.jwb.bankservice.services.CustomerServices;
 
@@ -17,10 +17,10 @@ public class Search {
     CustomerServices cServices;
 
     @PostMapping(value="/search")
-    public ArrayList<String> searchCustomer(@RequestBody String data) {
+    public List<String> searchCustomer(@RequestBody String data) {
         int n = data.length();
         data = data.substring(1, n-1);
-        ArrayList<String> listResult = cServices.search(data);
+        List<String> listResult = cServices.search(data);
         return listResult;
     }    
 }

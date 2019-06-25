@@ -10,8 +10,8 @@
         <form action="/transfer" method="POST">
             <fieldset>
                 <legend>Transfer</legend>
-                <label>Sent Id: </label><br>
-                <label>Available: </label><br>
+                <label>Sent Id: ${customerId}</label><br>
+                <label>Available: ${balance}$</label><br>
                 <label>Received Id:</label>
                 <input name = receivedId placeholder="Enter receiver's ID" type="number" required/> <br>
                 <input type="hidden" value="${customerId}" name="sentId">

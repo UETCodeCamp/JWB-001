@@ -1,21 +1,32 @@
 package com.jwb.bankservice.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Customer")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
 
-    private String name, email, phoneNumber, password = "123456";
-    private int id, balance, login = 1;
+    @Column(name = "name")
+    private String name;
 
-    public Customer() {
+    @Column(name = "email")
+    private String email;
 
-    }
+    @Column(name = "phone")
+    private String phoneNumber;
 
-    public Customer(String name, String email, String phoneNumber, int balance) {
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.balance = balance;
-    }
+    @Column(name = "password")
+    private String password = "123456";
 
+    @Column(name = "balance")
+    private int balance;
+
+    @Column(name = "login")
+    private int login = 1;
+    
     public int getId(){
         return id;
     }

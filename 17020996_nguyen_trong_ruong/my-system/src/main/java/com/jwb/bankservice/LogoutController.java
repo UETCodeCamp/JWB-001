@@ -14,7 +14,7 @@ public class LogoutController {
 
     @GetMapping(value="/logout")
     public String logout(@RequestParam(name="customerId") Integer id){
-        cServices.getCustomer(id).setLogin(0);
+        cServices.logout(id);
         return "redirect:/customer-list";
     }
 }

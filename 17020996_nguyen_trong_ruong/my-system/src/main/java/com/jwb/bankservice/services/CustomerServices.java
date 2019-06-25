@@ -1,68 +1,68 @@
 package com.jwb.bankservice.services;
 
-import java.util.ArrayList;
-
 import com.jwb.bankservice.models.Customer;
-import com.jwb.bankservice.repositories.CustomerList;
+import com.jwb.bankservice.repositories.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerServices {
     @Autowired
-    CustomerList cList;
-    private static int id = 0;
+    private CustomerRepository customerRepository;
 
     public Customer getCustomer(int id){
-        for(Customer c : cList.customerList){
-            if (c.getId() == id) return c;
-        }
-        return null;
+        return customerRepository.getOne(id);
     }
 
-    public ArrayList<Customer> getAllCustomer(){
-        return cList.customerList;
+    public List<Customer> getAllCustomer(){
+        return customerRepository.findAll();
     }
 
     public void addCustomer(Customer ctm){
-        ctm.setId(id);
-        cList.customerList.add(ctm);
-        id++;
+        customerRepository.save(ctm);
     }
 
     public void delCustomerList(int id){
-        int n = cList.customerList.size();
-        for(int i=0; i<n; i++){
-            if (cList.customerList.get(i).getId() == id) {
-                cList.customerList.remove(cList.customerList.get(i));
-                break;
-            }
-        }
+        customerRepository.deleteById(id);
     }
 
     public void editCustomer(Customer customer){
-        int id = customer.getId();
-        Customer c = getCustomer(id);
-        c.setName(customer.getName());
-        c.setEmail(customer.getEmail());
-        c.setPhoneNumber(customer.getPhoneNumber());
-        c.setPassword(customer.getPassword());
+        customerRepository.save(customer);
+    }
+
+    public void logout(int id){
+        Customer c = customerRepository.getOne(id);
+        c.setLogin(0);
+        customerRepository.save(c);
+    }
+
+    public boolean login(int id, String pass){
+        Customer c = customerRepository.getOne(id);
+        if (c.getPassword().equals(pass)){
+            c.setLogin(1);
+            customerRepository.save(c);
+            return true;
+        }
+        return false;
     }
 
     public void transferMoney(int sId, int rId, int amount){
-        for(Customer c : getAllCustomer()){
-            if (c.getId() == rId){
-                getCustomer(sId).transferMoney(amount);
-                c.receiveMoney(amount);
-                break;
-            }
-        }
+        Customer sentCustomer = customerRepository.getOne(sId);
+        Customer receivedCustomer = customerRepository.getOne(rId);
+        sentCustomer.transferMoney(amount);
+        receivedCustomer.receiveMoney(amount);
+        customerRepository.save(sentCustomer);
+        customerRepository.save(receivedCustomer);
     }
 
-    public ArrayList<String> search(String data){
+    public List<String> search(String data){
         String result = new String();
-        ArrayList<String> listResult = new ArrayList<>();
+        
+        List<String> listResult = new ArrayList<>();
         for(Customer customer : getAllCustomer()){
             if (customer.getName().contains(data) || customer.getEmail().contains(data) || customer.getPhoneNumber().contains(data)){
                 result += "<tr> <td>" + customer.getName() + "</td> <td>" + customer.getEmail() + "</td> <td>" + customer.getPhoneNumber() + "</td> <td><a href=\"/editing-form?customerId=" + customer.getId() + "\">Edit</a> </td></tr>";
