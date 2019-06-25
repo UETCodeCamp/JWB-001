@@ -1,4 +1,4 @@
-<%@ page import="com.uetcodecamp.vuvanhoc.objects.User" %>
+<%@ page import="com.uetcodecamp.vuvanhoc.model.Customer" %>
 <%@ page import="java.util.HashMap" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
@@ -23,16 +23,17 @@
 
 <div class="form">
 	<%
-		HashMap<Integer, User> results = (HashMap<Integer, User>) request.getAttribute("items");
-		int key = (int) request.getAttribute("key");
+		Customer customer = (Customer) request.getAttribute("customer");
 	%>
-	<form action="/giao-dich/<%=key%>" method="post" >
+	<form action="/giao-dich/<%=customer.getId()%>" method="post" >
 		<label>Thông tin tài khoản</label><br><br>
-		ID: <%=results.get(key).getId()%><br><br>
-		Tên: <%=results.get(key).getName()%><br><br>
-		Email: <%=results.get(key).getEmail()%><br><br>
-		Phone: <%=results.get(key).getPhone()%><br><br>
-		Số dư khả dụng: <%=results.get(key).getBalance()%> VNĐ<br><br>
+		ID: <%=customer.getId()%><br><br>
+		Tên: <%=customer.getName()%><br><br>
+		Email: <%=customer.getEmail()%><br><br>
+		Phone: <%=customer.getPhone()%><br><br>
+		Số dư khả dụng: <%=customer.getBalance()%> VNĐ<br><br>
+		Ngày tạo tài khoản: <br><br>
+		Ngày cập nhật: <br><br>
 		<input type="submit" value="Chuyển tiền ">
 	</form>
 

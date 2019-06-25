@@ -1,4 +1,4 @@
-<%@ page import="com.uetcodecamp.vuvanhoc.objects.User" %>
+<%@ page import="com.uetcodecamp.vuvanhoc.model.Customer" %>
 <%@ page import="java.util.HashMap" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>

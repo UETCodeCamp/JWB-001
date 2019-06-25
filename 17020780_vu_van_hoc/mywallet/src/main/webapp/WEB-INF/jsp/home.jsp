@@ -1,5 +1,5 @@
-<%@ page import="com.uetcodecamp.vuvanhoc.objects.User" %>
-<%@ page import="java.util.HashMap" %>
+<%@ page import="com.uetcodecamp.vuvanhoc.model.Customer" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
@@ -41,23 +41,25 @@
 		<tbody id="myTable">
 		
 			<%
-				HashMap<Integer, User> results = (HashMap<Integer, User>) request.getAttribute("items");
-				for(int key : results.keySet()) {
+				List<Customer> customerList= (List<Customer>) request.getAttribute("customerList");
+				for (Customer c: customerList) {
+
+
 			%>
-			<tr id="<%=results.get(key).getId()%>">
-				<td style="text-align: center"><%=results.get(key).getId()%>
+			<tr id="<%=c.getId()%>">
+				<td style="text-align: center"><%=c.getId()%>
 				</td>
-				<td><%=results.get(key).getName()%>
+				<td><%=c.getName()%>
 				</td>
-				<td><%=results.get(key).getEmail()%>
+				<td><%=c.getEmail()%>
 				</td>
-				<td><%=results.get(key).getPhone()%>
+				<td><%=c.getPhone()%>
 				</td>
-				<td style="text-align: right"><%=results.get(key).getBalance()%>
+				<td style="text-align: right"><%=c.getBalance()%>
 				</td>
 				<td>
-					<button class="btn btn-primary" onclick="editUser(<%=results.get(key).getId()%>)">Sửa </button>
-					<button class="btn btn-danger" onclick="removeUser(<%=results.get(key).getId()%>)">Xóa </button>
+					<button class="btn btn-primary" onclick="editUser(<%=c.getId()%>)">Sửa </button>
+					<button class="btn btn-danger" onclick="removeUser(<%=c.getId()%>)">Xóa </button>
 				</td>
 			</tr>
 			<%
@@ -85,26 +87,24 @@
 				},
 				success:function () {
 				    window.location = "/sua-thong-tin?id=" + id;
-
                 }
 			})
-
         }
         function removeUser(id) {
 	        if (!confirm("Bạn muốn xóa người dùng có mã ID: " + id +"?")) return ;
-            $.ajax({
-                url: "/xoa-nguoi-dung",
+            $.delete({
+                url: "/xoa-nguoi-dung?id=" + id,
+				type: 'DELETE',
                 data:{
                     id:id
                 },
                 success:function () {
 					$("#"+id).remove();
+
                 }
             })
             alert("Xóa thành công người dùng có ID: " + id );
         }
-
-
 	</script>
 
 </div>
