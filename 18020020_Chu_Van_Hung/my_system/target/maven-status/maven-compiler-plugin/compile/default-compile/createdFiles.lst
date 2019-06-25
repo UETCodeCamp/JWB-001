@@ -1,3 +1,8 @@
 com\uetcodecamp\jwb01\HelloController.class
+<<<<<<< HEAD
+com\uetcodecamp\jwb01\Application.class
+com\uetcodecamp\jwb01\model\User.class
+=======
 com\uetcodecamp\jwb01\User.class
 com\uetcodecamp\jwb01\Application.class
+>>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a

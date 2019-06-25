@@ -1,3 +1,34 @@
+<<<<<<< HEAD
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link href="/css/bootstrap.css" rel="stylesheet">
+<title>Chuyển tiền</title>
+
+<body>
+<div class="container">
+<center>
+    <div class="w-25 p-3">
+    <form method = "post" action = "transfer">
+        <div class="form-group">
+        <h3>Chuyển tiền</h3><hr><br>
+        <input type = "number" class="form-control" name = "id" placeholder="ID người dùng chuyển tới"/><br>
+        <input type = "number" class="form-control" name = "balance" placeholder="Số tiền..."/><br>
+        <font color = "red"><small>${messTransfer}</small></font><br>
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+        </div>
+    </form>
+    </div>
+</center>
+</div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+=======
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -52,4 +83,5 @@
     </form>
 </center>
 </body>
+>>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a
 </html>
