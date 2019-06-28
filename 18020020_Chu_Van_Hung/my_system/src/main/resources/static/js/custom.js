@@ -20,9 +20,9 @@
 
 //search ajax
     $(document).ready(function () {
-        $('#search').click(function (e) {
+        $('#search').keyup(function (e) {
             e.preventDefault();
-            var getName = $('#txtSearch').val();
+            var getName = $('#search').val();
             console.log(getName);
             $.ajax({
                 url: '/search',

@@ -1,88 +1,95 @@
-<<<<<<< HEAD
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"/>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<title>Login</title>
+    <meta name="theme-color" content="#EE6E73">
+    <title>Login</title>
+</head>
 
 <body>
-<div class="container"><center>
-    <div class="w-25 p-3">
-    <form method = "post" action = "login">
-        <div class="form-group">
-        <h3>Đăng nhập</h3><hr><br>
-        <input type = "text" class="form-control" name = "email" placeholder="Enter email"/><br>
-        <input type = "password" class="form-control" name = "password" placeholder="Enter password"/><br>
-        <font color = "red"><small>${messLogin}</small></font><br>
-        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+<div class="container">
+
+    <div id="login-page" class="row">
+        <h4 class="center header">Đăng nhập</h4>
+        <div class="col s12 z-depth-6 card-panel">
+            <form method="post" action="login" class="login-form">
+                <div class="row">
+                </div>
+                <%
+                if(request.getAttribute("messLogin") != null)
+                {
+            %>
+                <style>.icon_style{
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                    font-size: 20px;
+                    color: white;
+                    cursor:pointer;
+                }</style>
+                <div class="row" id="alert_box">
+                    <div class="col s12 m12">
+                        <div class="card red darken-1">
+                            <div class="row">
+                                <div class="col s12 m10">
+                                    <div class="card-content white-text">
+                                        <p>${messLogin}</p>
+                                    </div>
+                                </div>
+                                <div class="col s12 m2">
+                                    <i class="material-icons icon_style" id="alert_close" aria-hidden="true">close</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%
+                    }
+                %>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mail_outline</i>
+                        <input class="validate" name="email" type="email" id="email">
+                        <label for="email" data-error="wrong" data-success="right">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock_outline</i>
+                        <input id="password" type="password" name="password">
+                        <label for="password">Mật khẩu</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type="submit" class="btn waves-effect waves-light col s12">Đăng nhập</button>
+                    </div>
+                </div>
+
+
+
+
+            </form>
+
         </div>
-    </form>
     </div>
-</center>
+
 </div>
 </body>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-<script src="js/bootstrap.js"></script>
-=======
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<title>Login</title>
-<style>
-    form {
-        border: 3px solid #f1f1f1;
-        width: 21%;
-    }
-
-    /* Full-width inputs */
-    input[type=text], input[type=password] {
-        /* width: 20%;*/
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    /* Set a style for all buttons */
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        /* width: 10%;*/
-    }
-
-    /* Add a hover effect for buttons */
-    button:hover {
-        opacity: 0.8;
-    }
-    hr{
-        border-color: aqua;
-    }
-
-</style>
-<body>
-<br>
-<center>
-    <form method = "post" action = "submitLogin">
-        <h3>Đăng nhập</h3><hr><br>
-        <input type = "text" name = "email" placeholder="Enter email"/><br>
-        <input type = "password" name = "password" placeholder="Enter password"/><br>
-        <font color = "red"><small>${messLogin}</small></font><br>
-        <button type="submit">Đăng nhập</button>
-    </form>
-</center>
-</body>
->>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a
+<script src="js/jquery.min.js"></script>
+<script>$('#alert_close').click(function(){
+    $( "#alert_box" ).fadeOut( "slow", function() {
+    });
+});</script>
+<script src="js/materialize.js"></script>
 </html>

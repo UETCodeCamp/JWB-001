@@ -1,67 +1,161 @@
-<<<<<<< HEAD
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.uetcodecamp.jwb01.model.User" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"/>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<title>Home</title>
+    <meta name="theme-color" content="#EE6E73">
+    <title>Home</title>
+</head>
 
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <%
-                    User isLogin = (User)request.getAttribute("session");
-                    if(isLogin == null){
-                %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Đăng nhập</a>
-                </li>
-                <%
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo center">My Wallet</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+
+            </div>
+        </nav>
+    </div>
+<br>
+    <div class="row">
+        <div class="col s12 m6 l3">
+            <%
+                User user = (User)request.getAttribute("session");
+                if(user == null){
+            %>
+                <h5 class="center header">Đăng nhập</h5>
+                <div class="col s12 z-depth-6 card-panel">
+                    <form method="post" action="login" class="login-form">
+                        <div class="row">
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">mail_outline</i>
+                                <input class="validate" name="email" type="email" id="email">
+                                <label for="email" data-error="wrong" data-success="right">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lock_outline</i>
+                                <input id="password" type="password" name="password">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button type="submit" class="btn waves-effect waves-light col s12">Đăng nhập</button>
+                            </div>
+                        </div>
+
+
+                        <%
+                            if(request.getAttribute("messLogin") != null)
+                            {
+                        %>
+                        <style>.icon_style{
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+                            font-size: 20px;
+                            color: white;
+                            cursor:pointer;
+                        }</style>
+                        <div class="row" id="alert_box">
+                            <div class="col s12 m12">
+                                <div class="card red darken-1">
+                                    <div class="row">
+                                        <div class="col s12 m10">
+                                            <div class="card-content white-text">
+                                                <p>${messLogin}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m2">
+                                            <i class="material-icons icon_style" id="alert_close" aria-hidden="true">close</i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <%
+                            }
+                        %>
+
+                    </form>
+
+                </div>
+
+            <%
                 }
                 else {
-                %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Đăng xuất</a>
-                </li>
-                <%
-                    }
-                %>
-            </ul>
-            <form action="search" method="post" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" name = "name" id="txtSearch" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" id="search" type="submit">Search</button>
-            </form>
+            %>
+
+
+
+            <h5 class="header">Thông tin cá nhân</h5>
+            <div class="card">
+                    <div class="card-content">
+                        <p>
+                            <b>Tài khoản:</b> <%=user.getName()%><br>
+                            <b>ID:</b> <%=user.getId()%><br>
+                            <b>Email:</b> <%=user.getEmail()%><br>
+                            <b>Số điện thoại:</b> <%=user.getPhone()%><br>
+                            <b>Số tiền:</b> <%=user.getBalance()%>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="transfer" class="waves-effect waves-light btn">Chuyển khoản</a>
+                        <a href="logout" class="waves-effect waves-light btn">Thoát</a>
+                    </div>
+
+            </div>
+            <%
+                }
+            %>
         </div>
-    </nav>
-    <br>
-    <form action="add">
-        <button type="submit" class="btn btn-secondary">Thêm</button>
-    </form>
-    <br>
+        <div class="col s12 m6 l9">
+            <div class="col s12 m4 3">
+                <h5 class="header">Danh sách tài khoản</h5>
+            </div>
+            <div class="col s12 m4 4">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search" class="autocomplete">
+                        <label for="search">Tìm kiếm tài khoản</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m2 3">
+                <a href="add" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+
+
 <div id = "list">
-<table class = "table table-hover">
+<table class = "responsive-table highlight">
     <thead>
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Balance</th>
-        <th scope="col">Action</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Balance</th>
+        <th>Action</th>
     </tr>
     </thead>
 
@@ -71,7 +165,7 @@
 %>
     <tbody>
     <tr id = "<%=results.get(i).getId()%>">
-        <th scope="row"><%=results.get(i).getId()%></th>
+        <th><%=results.get(i).getId()%></th>
         <td><%=results.get(i).getName()%></td>
         <td><%=results.get(i).getEmail()%></td>
         <td><%=results.get(i).getPhone()%></td>
@@ -82,101 +176,13 @@
 <%
     }
 %>
-</table>
+</table></div>
 </div>
-</div>
+    </div>
 </body>
 
 
 <script src="/js/jquery.min.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="js/materialize.js"></script>
 <script src="js/custom.js"></script>
-=======
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.uetcodecamp.jwb01.User" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<title>Home</title>
-<style>
-
-    button {
-        background-color: cadetblue;
-        color: white;
-        padding: 5px 15px;
-        margin: 10px 0;
-        border: none;
-        cursor: pointer;
-        /* width: 10%;*/
-    }
-
-    /* Add a hover effect for buttons */
-    button:hover {
-        opacity: 0.8;
-    }
-    #customers {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    #customers td, #customers th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-
-    #customers tr:nth-child(even){background-color: #f2f2f2;}
-
-    #customers tr:hover {background-color: #ddd;}
-
-    #customers th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: olivedrab;
-        color: white;
-    }
-
-
-</style>
-<body>
-<form action="add">
-    <button type="submit">Thêm</button>
-</form>
-<form action="login">
-    <button type="submit">Đăng nhập</button>
-</form>
-<table id="customers">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Balance</th>
-        <th></th>
-    </tr>
-
-
-<%
-    ArrayList<User> results = (ArrayList<User>) request.getAttribute("items");
-    for (int i =0; i < results.size(); i++) {
-%>
-<h1>
-    <tr>
-        <td><%=i+1%></td>
-        <td><%=results.get(i).getName()%></td>
-        <td><%=results.get(i).getEmail()%></td>
-        <td><%=results.get(i).getPhone()%></td>
-        <td><%=results.get(i).getBalance()%></td>
-        <td><a href="edit">Edit</a> </td>
-    </tr>
-</h1>
-<%
-    }
-%>
-</table>
-</body>
->>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a
 </html>

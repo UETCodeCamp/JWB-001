@@ -3,10 +3,12 @@ package com.uetcodecamp.jwb01.controller;
 import com.uetcodecamp.jwb01.model.User;
 import com.uetcodecamp.jwb01.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,16 +17,15 @@ import java.util.Optional;
 @Controller
 public class HelloController {
 
-    private List<User> items = new ArrayList<>();
-    private User session;
+
     @Autowired
-    private UserRepository userRepository;
+    private UserController userController;
 
     @RequestMapping("/")
-    public String index(Model model) {
-        items = userRepository.findAll();
+    public String index(Model model, HttpSession session) {
+        List<User> items = userController.GetAllUser();
         model.addAttribute("items", items);
-        model.addAttribute("session", session);
+        model.addAttribute("session", session.getAttribute("user"));
         return "home";
     }
 
@@ -36,10 +37,17 @@ public class HelloController {
     @PostMapping("add")
     public String submitFormAdd(@RequestParam("name") String name,
                                 @RequestParam("email") String email,
+                                @RequestParam("password") String password,
                                 @RequestParam("phone") String phone,
-                                @RequestParam("balance") int balance) {
-        User newUser = new User(name, email, phone, "123456", balance);
-        userRepository.save(newUser);
+                                @RequestParam("balance") Long balance,
+                                Model model) {
+        List<User> user = userController.GetUserByEmail(email);
+        if(user.size() > 0) {
+            model.addAttribute("messAdd", "Đăng kí không thành công!");
+            return "add";
+        }
+        User newUser = new User(name, email, phone, password, balance);
+        userController.AddNewUser(newUser);
         return "redirect:/";
     }
 
@@ -48,14 +56,15 @@ public class HelloController {
                             Model model) {
         model.addAttribute("id", id);
 
-        Optional<User> user = userRepository.findById(id);
-        if(!user.isPresent()) {
+        User user = userController.GetUserById(id);
+        if(user == null) {
             return "edit";
         }
-        model.addAttribute("name", user.get().getName());
-        model.addAttribute("email", user.get().getEmail());
-        model.addAttribute("phone", user.get().getPhone());
-        model.addAttribute("balance", user.get().getBalance());
+        model.addAttribute("name", user.getName());
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("password", user.getPassword());
+        model.addAttribute("phone", user.getPhone());
+        model.addAttribute("balance", user.getBalance());
         return "edit";
     }
     @PostMapping("edit/{id}")
@@ -63,108 +72,99 @@ public class HelloController {
                              @RequestParam("email") String email,
                              @RequestParam("name") String name,
                              @RequestParam("phone") String phone,
-                             @RequestParam("balance") int balance) {
-        Optional<User> user = userRepository.findById(id);
-        if(!user.isPresent()) return "redirect:/";
-        user.get().editUser(name, email, phone, user.get().getPassword(), balance);
-        userRepository.save(user.get());
+                             @RequestParam("password") String password,
+                             @RequestParam("balance") Long balance) {
+        User user = userController.GetUserById(id);
+        if(user == null) {
+            return "redirect:/";
+        }
+        user.editUser(name, email, phone, password, balance);
+        userController.EditUser(user);
         return "redirect:/";
     }
     @PostMapping("delete")
     public String indexDelete(@RequestParam("id") Long id,
                               Model model){
-        Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()) userRepository.deleteById(id);
-        items = userRepository.findAll();
+        userController.DeleteUser(id);
+        List<User> items = userController.GetAllUser();
         model.addAttribute("items", items);
         return  "list";
     }
     @RequestMapping("list")
     public String indexList(Model model)
     {
-        items = userRepository.findAll();
+        List<User> items = userController.GetAllUser();
         model.addAttribute("items", items);
         return "list";
     }
     @PostMapping("search")
     public String indexSearch(@RequestParam("name") String name,
                               Model model){
-        List<Integer> lstSearch = new ArrayList<>();
-        items = userRepository.findAll();
-        for(int i = 0; i < items.size(); i++)
-        {
-            if(items.get(i).getName().equals(name) || items.get(i).getEmail().equals(name) || items.get(i).getPhone().equals(name)) lstSearch.add(i);
-        }
+
+        List<User> items = userController.SearchUser(name);
         model.addAttribute("items", items);
-        model.addAttribute("lstSearch", lstSearch);
         return "search";
     }
 
     @GetMapping("login")
-    public String indexLogin()
+    public String indexLogin(HttpSession session)
     {
-        if(session != null) return "redirect:/profile";
+
+        if(session.getAttribute("user") != null) return "redirect:/";
         return "login";
     }
     @PostMapping("login")
     public String submitLogin(@RequestParam("email") String email,
                               @RequestParam("password") String password,
-                              Model resLogin) {
-        List<User> user = userRepository.findByEmail(email);
-        for(int i = 0; i < user.size(); i++)
-            if(user.get(i).isLogin(email, password)) {
-                session = user.get(i);
-                return "redirect:/profile";
-            }
-
+                              Model resLogin,
+                              HttpSession session) {
+        User user = userController.CheckLogin(email, password);
+        if(user != null){
+            session.setAttribute("user", user);
+            return "redirect:/";
+        }
         resLogin.addAttribute("messLogin", "Đăng nhập không thành công!");
         return "login";
     }
 
     @RequestMapping("logout")
-    public String indexLogout()
+    public String indexLogout(HttpSession session)
     {
-        session = null;
+        session.removeAttribute("user");
         return "redirect:/";
     }
 
     @RequestMapping("profile")
-    public String indexProfile(Model model)
+    public String indexProfile(Model model, HttpSession session)
     {
-        model.addAttribute("session", session);
+        model.addAttribute("session", session.getAttribute("user"));
         return "profile";
     }
 
     @GetMapping("transfer")
-    public String indexTranfer()
+    public String indexTranfer(HttpSession session)
     {
-        return "transfer";
+        if(session.getAttribute("user") != null) return "transfer";
+        else return "redirect:/";
     }
 
     @PostMapping("transfer")
     public String submitTranfer(@RequestParam("id") Long id,
-                              @RequestParam("balance") int balance,
-                              Model resTransfer) {
-        Optional<User> user = userRepository.findById(id);
-        int myBalance = session.getBalance();
-        if(user.isPresent() && user.get().getId() == session.getId()) return "redirect:/profile";
-        if(user.isPresent() && myBalance - balance >= 0 && balance >= 0){
-            session.setBalance(myBalance - balance);
-            userRepository.save(session);
-            user.get().setBalance(user.get().getBalance() + balance);
-            userRepository.save(user.get());
-            return "redirect:/profile";
-        }
-        else if(myBalance - balance < 0){
-            resTransfer.addAttribute("messTransfer", "LỖI: Số dư trong tài khoản không đủ!");
+                              @RequestParam("balance") Long balance,
+                              Model resTransfer,
+                                HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            resTransfer.addAttribute("messTransfer", "LỖI: Giao dịch không thành công!");
             return "transfer";
         }
-        else if(balance < 0){
-            resTransfer.addAttribute("messTransfer", "LỖI: Số tiền chuyển không hợp lệ!");
-            return "transfer";
+        boolean isTransfer = userController.Transfer(user.getId(), id, balance);
+        if(isTransfer) {
+            session.setAttribute("user", userController.GetUserById(user.getId()));
+            return "redirect:/";
         }
         else {
-            resTransfer.addAttribute("messTransfer", "LỖI: ID không tồn tại!");
+            resTransfer.addAttribute("messTransfer", "LỖI: Giao dịch không thành công!");
             return "transfer";
         }
     }

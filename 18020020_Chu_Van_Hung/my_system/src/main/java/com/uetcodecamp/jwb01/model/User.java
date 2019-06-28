@@ -28,14 +28,14 @@ public class User {
     private String password;
 
     @Column(name = "balance")
-    private int balance;
+    private Long balance;
 
     public User()
     {
         this.password = "123456";
     }
 
-    public User(String name, String email, String phone, String password, int balance)
+    public User(String name, String email, String phone, String password, Long balance)
     {
         this.name = name;
         this.email = email;
@@ -44,7 +44,7 @@ public class User {
         this.password = password;
     }
 
-    public void editUser(String name, String email, String phone, String password, int balance)
+    public void editUser(String name, String email, String phone, String password, Long balance)
     {
         this.name = name;
         this.email = email;
@@ -63,7 +63,7 @@ public class User {
         this.id = id;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Long balance) {
         this.balance = balance;
     }
 
@@ -83,7 +83,7 @@ public class User {
         this.password = password;
     }
 
-    public int getBalance() {
+    public Long getBalance() {
         return balance;
     }
 
