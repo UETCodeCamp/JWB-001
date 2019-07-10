@@ -20,7 +20,7 @@
 </div>
 
 <div class="form">
-	<form action="/them-nguoi-dung" method="post" >
+	<form action="/xu-ly-them-nguoi-dung" method="post" >
 		<label style="color: #112386">ĐĂNG KÝ TÀI KHOẢN MỚI</label><br><br>
 		<label for="name">Họ và tên</label>
 		<input type="text" name="name" placeholder="Enter name" id="name" required><br/>
