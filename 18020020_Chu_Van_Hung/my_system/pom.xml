@@ -14,12 +14,27 @@
     </parent>
 
     <dependencies>
+<<<<<<< HEAD
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+=======
 
+>>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+<<<<<<< HEAD
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
+=======
 
+>>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a
         <!-- JSTL for JSP -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -32,7 +47,20 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
         </dependency>
+<<<<<<< HEAD
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+=======
 
+>>>>>>> 7834ff41e7663548ff48a128c22048c0cb26cf7a
     </dependencies>
 
     <properties>
