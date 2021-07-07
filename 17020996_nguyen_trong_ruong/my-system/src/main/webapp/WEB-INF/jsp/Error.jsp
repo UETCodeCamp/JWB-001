@@ -4,11 +4,10 @@
     <head>
         <meta charset="utf-8"/>
         <title>Error</title>
+        <link rel="stylesheet" type="text/css" href="css/Error.css">
     </head>
     <body>
         <p>Error!</p>
-        <form action="/customer-list">
-            <input type="submit" value="Back to list">
-        </form>
+        <a href="/">back to Home</a>
     </body>
 </html>

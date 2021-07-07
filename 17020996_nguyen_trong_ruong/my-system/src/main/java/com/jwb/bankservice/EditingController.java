@@ -1,18 +1,21 @@
 package com.jwb.bankservice;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.jwb.bankservice.models.Customer;
+import com.jwb.bankservice.services.CustomerServices;
 
-@Controller
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class EditingController {
+    @Autowired
+    CustomerServices cServices;
+
     @PostMapping(value="/edit-customer")
-    public String addCustomer(@ModelAttribute("customerInfo") Customer customer) {
-        int id = CustomerList.customerList.size()-1;
-        CustomerList.customerList.get(id).setName(customer.getName());
-        CustomerList.customerList.get(id).setEmail(customer.getEmail());
-        CustomerList.customerList.get(id).setPhoneNumber(customer.getPhoneNumber());
-        CustomerList.customerList.get(id).setPassword(customer.getPassword());
-        return "redirect:/customer-list";
+    public String addCustomer(@RequestBody Customer customer) {
+        cServices.editCustomer(customer);
+        return "/";
     }
 }
